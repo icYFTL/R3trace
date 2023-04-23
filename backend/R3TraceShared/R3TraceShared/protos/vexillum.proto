@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option csharp_namespace = "Vexillum.services";
+
+import "google/protobuf/wrappers.proto";
+
+package vexillum;
+
+service VexillumProtoService {
+  rpc CheckFlag(CheckFlagRequest) returns (GenericResponse);
+  rpc SetFlagBase(SetFlagBaseRequest) returns (GenericResponse);
+}
+
+message GenericResponse {
+  bool status = 1;
+  optional string message = 2;
+}
+
+message SetFlagBaseRequest {
+  string flagBase = 1;
+  string ctfUid = 2;
+}
+
+message FlagProtoEntity {
+  google.protobuf.StringValue uid = 1;
+  string content = 2;
+  string checkType = 3;
+  string ctfUid = 4;
+}
+
+message CheckFlagRequest {
+  string taskUid = 1;
+  string flag = 2;
+  google.protobuf.StringValue secret = 3;
+  string ctfUid = 4;
+}

@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+option csharp_namespace = "Magister.services";
+
+import "google/protobuf/wrappers.proto";
+// import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+package magister;
+
+service MagisterProtoService {
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse);
+  rpc DeleteTasks(DeleteTasksRequest) returns (GenericResponse);
+  rpc GetTasks(GetTasksRequest) returns (GetTasksResponse);
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse);
+  rpc UpdateTasks(UpdateTasksRequest) returns (GenericResponse);
+  
+  rpc GetTaskTypes(google.protobuf.Empty) returns (GetTaskTypesResponse);
+  rpc CreateTaskType(CreateTaskTypeRequest) returns (CreateTaskTypeResponse);
+  rpc DeleteTaskTypes(DeleteTaskTypesRequest) returns (GenericResponse);
+  rpc UpdateTaskTypes(UpdateTasksRequest) returns (GenericResponse);
+  rpc GetTaskType(GetTaskTypeRequest) returns (GetTaskTypeResponse);
+}
+
+message GenericResponse {
+  bool status = 1;
+  google.protobuf.StringValue message = 2;
+  int32 statusCode = 3;
+}
+
+message GetTaskTypeResponse {
+  optional TaskTypeProtoEntity item = 1;
+  int32 statusCode = 2;
+}
+
+message GetTaskTypeRequest {
+  string uid = 1;
+}
+
+message UpdateTaskTypesRequest {
+  repeated TaskTypeProtoEntity taskTypes = 1;
+}
+
+message DeleteTaskTypesRequest {
+  repeated string uids = 1;
+}
+
+message GetTaskTypesResponse {
+  repeated TaskTypeProtoEntity items = 1;
+}
+
+message CreateTaskTypeRequest {
+  TaskTypeProtoEntity info = 1;
+}
+
+message CreateTaskTypeResponse {
+  google.protobuf.StringValue uid = 1;
+  google.protobuf.StringValue message = 2;
+  int32 statusCode = 3;
+}
+
+message GetTaskRequest {
+  string uid = 1;
+}
+
+message GetTaskResponse {
+  optional TaskProtoEntity item = 1;
+  int32 statusCode = 2;
+}
+
+message GetTasksRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+  bool includeInvisible = 3;
+}
+
+message GetTasksResponse {
+  repeated TaskProtoEntity items = 1;
+}
+
+message DeleteTasksRequest {
+  repeated string uids = 1;
+}
+
+message CreateTaskRequest {
+  TaskProtoEntity info = 1;
+}
+
+message UpdateTasksRequest {
+  repeated TaskTypeProtoEntity tasks = 1;
+}
+
+message CreateTaskResponse {
+  google.protobuf.StringValue uid = 1;
+  google.protobuf.StringValue message = 2;
+  int32 statusCode = 3;
+}
+
+message TaskProtoEntity {
+  google.protobuf.StringValue uid = 1;
+  string name = 2;
+  string description = 3;
+  int32 price = 4;
+  optional TaskTypeProtoEntity taskType = 5;
+  optional string taskTypeUid = 6;
+  bool visible = 7;
+  string ctfUid = 8;
+}
+
+message TaskTypeProtoEntity {
+  google.protobuf.StringValue uid = 1;
+  string name = 2;
+  string description = 3;
+}

@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vexillum", "Vexillum\Vexillum.csproj", "{B3A563F7-7758-4CBE-A28B-3109C6ED95FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3TraceShared", "..\R3TraceShared\R3TraceShared\R3TraceShared.csproj", "{04CCDB5A-3EA8-4012-97C7-F5D7CCA172BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3A563F7-7758-4CBE-A28B-3109C6ED95FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3A563F7-7758-4CBE-A28B-3109C6ED95FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3A563F7-7758-4CBE-A28B-3109C6ED95FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3A563F7-7758-4CBE-A28B-3109C6ED95FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04CCDB5A-3EA8-4012-97C7-F5D7CCA172BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04CCDB5A-3EA8-4012-97C7-F5D7CCA172BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04CCDB5A-3EA8-4012-97C7-F5D7CCA172BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04CCDB5A-3EA8-4012-97C7-F5D7CCA172BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "Custos": {
+      "commandName": "Project",
+      "applicationUrl": "http://0.0.0.0:7001",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      },
+      "dotnetRunMessages": true
+    },
+    "CustosDev": {
+      "commandName": "Project",
+      "applicationUrl": "http://localhost:7001",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    }
+  }
+}

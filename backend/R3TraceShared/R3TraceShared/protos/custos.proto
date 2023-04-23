@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option csharp_namespace = "Custos.services";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/timestamp.proto";
+
+package custos;
+
+service CustosProtoService {
+  rpc CreateCtf(CreateCtfRequest) returns (CreateCtfResponse);
+  rpc DeleteCtf(DeleteCtfRequest) returns (GenericResponse);
+  rpc GetCtfs(GetCtfsRequest) returns (GetCtfsResponse);
+  rpc GetCtf(GetCtfRequest) returns (GetCtfResponse);
+  rpc UpdateCtf(UpdateCtfRequest) returns (GenericResponse);
+}
+
+message GenericResponse {
+  bool status = 1;
+  google.protobuf.StringValue message = 2;
+  int32 statusCode = 3;
+}
+
+message GetCtfRequest {
+  string uid = 1;
+}
+
+message GetCtfResponse {
+  optional CtfProtoEntity item = 1;
+  int32 statusCode = 2;
+}
+
+message GetCtfsRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+  bool includePrivate = 3;
+}
+
+message GetCtfsResponse {
+  repeated CtfProtoEntity items = 1;
+}
+
+message DeleteCtfRequest {
+  string uid = 1;
+}
+
+message CreateCtfRequest {
+  CtfProtoEntity info = 1;
+}
+
+message UpdateCtfRequest {
+  CtfProtoEntity info = 1;
+}
+
+message CreateCtfResponse {
+  google.protobuf.StringValue uid = 1;
+  google.protobuf.StringValue message = 2;
+  int32 statusCode = 3;
+}
+
+message CtfProtoEntity {
+  google.protobuf.StringValue uid = 1;
+  string name = 2;
+  string title = 3;
+  google.protobuf.Timestamp start_date = 4;
+  google.protobuf.Timestamp end_date = 5;
+  optional string code = 6;
+}

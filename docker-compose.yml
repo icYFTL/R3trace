@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+    # nginx:
+    #     build:
+    #         context: .
+    #         dockerfile: ./nginx/dockerfile
+    #     container_name: retrace_nginx
+    #     restart: always
+    #     ports:
+    #     - 8005:80
+    #     volumes:
+    #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    #     - ./logs:/var/log/nginx
+
+    db:
+        image: postgres:13.3
+        container_name: retrace_db
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_HOST_AUTH_METHOD: trust
+        volumes:
+        - database_data:/var/lib/postgresql/data
+        - ./backend/Custos/init_db.sh:/docker-entrypoint-initdb.d/custos_init_db.sh
+        - ./backend/Magister/init_db.sh:/docker-entrypoint-initdb.d/magister_init_db.sh
+        - ./backend/Vexillum/init_db.sh:/docker-entrypoint-initdb.d/vexillum_init_db.sh
+
+volumes:
+    database_data:
+        driver: local

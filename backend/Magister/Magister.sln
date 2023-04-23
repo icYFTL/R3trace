@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magister", "Magister\Magister.csproj", "{7601EC20-1EC3-447D-A138-8D27DEAB433C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "R3TraceShared", "..\R3TraceShared\R3TraceShared\R3TraceShared.csproj", "{0355412E-630B-4D8C-BB28-1AB03F7A1EC2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7601EC20-1EC3-447D-A138-8D27DEAB433C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7601EC20-1EC3-447D-A138-8D27DEAB433C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7601EC20-1EC3-447D-A138-8D27DEAB433C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7601EC20-1EC3-447D-A138-8D27DEAB433C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0355412E-630B-4D8C-BB28-1AB03F7A1EC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0355412E-630B-4D8C-BB28-1AB03F7A1EC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0355412E-630B-4D8C-BB28-1AB03F7A1EC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0355412E-630B-4D8C-BB28-1AB03F7A1EC2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
