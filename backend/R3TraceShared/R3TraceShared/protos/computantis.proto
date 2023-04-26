@@ -1,0 +1,125 @@
+syntax = "proto3";
+
+option csharp_namespace = "Computantis.services";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/empty.proto";
+
+service ComputantisProtoService {
+  rpc CreateTeam(CreateTeamRequest) returns (CreateTeamResponse);
+  rpc UpdateTeam(UpdateTeamRequest) returns (GenericResponse);
+  rpc DeleteTeam(DeleteTeamRequest) returns (GenericResponse);
+  rpc GetTeam(GetTeamRequest) returns (GetTeamResponse);
+  rpc GetTeams(GetTeamsRequest) returns (GetTeamsResponse);
+  rpc CreateUser(CreateUserRequest) returns (GenericResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (GenericResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (GenericResponse);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
+  rpc GetNationalities(google.protobuf.Empty) returns (GetNationalitiesResponse);
+}
+
+message GenericResponse {
+  bool status = 1;
+  google.protobuf.StringValue message = 2;
+  int32 statusCode = 3;
+}
+
+message CreateTeamRequest {
+  TeamProtoEntity team = 1;
+}
+
+message CreateTeamResponse {
+  string uid = 1;
+  string code = 2;
+  int32 statusCode = 3;
+}
+
+message UpdateTeamRequest {
+  TeamProtoEntity team = 1;
+}
+
+message DeleteTeamRequest {
+  string uid = 1;
+}
+
+message GetTeamRequest {
+  string uid = 1;
+}
+
+message GetTeamResponse {
+  TeamProtoEntity team = 1;
+}
+
+message GetTeamsRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message GetTeamsResponse {
+  repeated TeamProtoEntity teams = 1;
+}
+
+message CreateUserRequest {
+  UserProtoEntity user = 1;
+}
+
+message UpdateUserRequest {
+  UserProtoEntity user = 1;
+}
+
+message DeleteUserRequest {
+  string uid = 1;
+}
+
+message GetUserRequest {
+  string uid = 1;
+}
+
+message GetUserResponse {
+  UserProtoEntity user = 1;
+  int32 statusCode = 2;
+}
+
+message GetUsersRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message GetUsersResponse {
+  repeated UserProtoEntity users = 1;
+}
+
+message GetNationalitiesResponse {
+  repeated NationalityProtoEntity nationalities = 1;
+}
+
+message TeamProtoEntity {
+  google.protobuf.StringValue uid = 1;
+  string name = 2;
+  google.protobuf.StringValue code = 3;
+  string ownerUid = 4;
+  repeated UserProtoEntity users = 5;
+}
+
+message UserProtoEntity {
+  google.protobuf.StringValue uid = 1;
+  string username = 2;
+  optional string password = 3;
+  google.protobuf.StringValue nationalityUid = 4;
+  NationalityProtoEntity nationality = 5;
+  TeamProtoEntity team = 6;
+}
+
+//message UserInTeam {
+//  google.protobuf.StringValue uid = 1;
+//  google.protobuf.StringValue userUid = 2;
+//  google.protobuf.StringValue teamUid = 3;
+//  User user = 4;
+//  Team team = 5;
+//}
+
+message NationalityProtoEntity {
+  google.protobuf.StringValue uid = 1;
+  string name = 2;
+}

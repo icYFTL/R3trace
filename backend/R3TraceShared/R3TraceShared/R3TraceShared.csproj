@@ -28,6 +28,13 @@
             <OutputDir>obj\Debug/net6.0/</OutputDir>
             <Generator>MSBuild:Compile</Generator>
         </Protobuf>
+        <Protobuf Include="protos\computantis.proto" GrpcServices="Both">
+            <Access>Public</Access>
+            <ProtoCompile>True</ProtoCompile>
+            <CompileOutputs>True</CompileOutputs>
+            <OutputDir>obj\Debug/net6.0/</OutputDir>
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
     </ItemGroup>
 
     <ItemGroup>
@@ -37,6 +44,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
     </ItemGroup>
 
 </Project>
