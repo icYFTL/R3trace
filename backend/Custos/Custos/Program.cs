@@ -2,24 +2,48 @@ using AutoMapper;
 using Custos.database;
 using Custos.logic;
 using Custos.profiles;
-using Custos.services;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddGrpc();
 var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingDefaultProfile()); });
+builder.Services.AddSingleton(mappingConfig.CreateMapper());
 
-IMapper mapper = mappingConfig.CreateMapper();
-builder.Services.AddSingleton(mapper);
+if (builder.Environment.IsDevelopment())
+    builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo { Title = "Custos", Version = "v1" }); });
+
+
 builder.Services.AddTransient<ApplicationContext>();
 builder.Services.AddScoped<CtfLogic>();
 
+JsonConvert.DefaultSettings = () =>
+{
+    var settings = new JsonSerializerSettings
+    {
+        ContractResolver = new CamelCasePropertyNamesContractResolver(),
+        PreserveReferencesHandling = PreserveReferencesHandling.None,
+        Formatting = Formatting.None
+    };
+
+    return settings;
+};
+
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-app.MapGrpcService<CustosService>();
-app.MapGet("/",
-    () =>
-        "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Custos v1"));
+}
 
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 app.Run();

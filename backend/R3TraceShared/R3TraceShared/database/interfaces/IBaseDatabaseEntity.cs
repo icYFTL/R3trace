@@ -1,3 +1,4 @@
+using System;
 namespace R3TraceShared.database.interfaces;
 
 public interface IBaseDatabaseEntity

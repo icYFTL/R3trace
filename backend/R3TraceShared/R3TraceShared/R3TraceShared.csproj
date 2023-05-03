@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Protobuf Include="protos\custos.proto" GrpcServices="Both">
+        <None Include="protos\custos.proto" GrpcServices="Both">
             <Access>Public</Access>
             <ProtoCompile>True</ProtoCompile>
             <CompileOutputs>True</CompileOutputs>
             <OutputDir>obj/Debug/net6.0/</OutputDir>
             <Generator>MSBuild:Compile</Generator>
-        </Protobuf>
+        </None>
         <Protobuf Include="protos\vexillum.proto" GrpcServices="Both">
             <Access>Public</Access>
             <ProtoCompile>True</ProtoCompile>
@@ -44,6 +44,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
     </ItemGroup>
 
