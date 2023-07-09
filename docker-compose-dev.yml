@@ -1,18 +1,20 @@
 version: '3.7'
 services:
-    # nginx:
-    #     build:
-    #         context: .
-    #         dockerfile: ./nginx/dockerfile
-    #     container_name: retrace_nginx
-    #     ports:
-    #     - 8005:80
-    #     volumes:
-    #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-    #     - ./logs:/var/log/nginx
-
+    nginx:
+        build:
+            context: .
+            dockerfile: ./nginx/dockerfile
+        container_name: friday_nginx
+        depends_on:
+        - computantis
+        ports:
+        - 8000:80
+        volumes:
+        - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+        - ./logs:/var/log/nginx
+        - ./nginx/lua:/etc/nginx/lua:ro
     db:
-        image: postgres:13.3
+        image: postgres:15.3
         container_name: retrace_db
         ports:
         - 5432:5432
@@ -26,6 +28,33 @@ services:
         - ./backend/Magister/init_db.sh:/docker-entrypoint-initdb.d/magister_init_db.sh
         - ./backend/Vexillum/init_db.sh:/docker-entrypoint-initdb.d/vexillum_init_db.sh
         - ./backend/Computantis/init_db.sh:/docker-entrypoint-initdb.d/computantis_init_db.sh
+    computantis:
+        build:
+            context: .
+            dockerfile: ./backend/Computantis/dockerfile
+        container_name: retrace_computantis
+        depends_on:
+        - db
+        ports:
+        - 7003:7003
+        links:
+        - db
+        volumes:
+        - ./logs/computantis.log:/var/log/computantis.log
+    custos:
+        build:
+            context: .
+            dockerfile: ./backend/Custos/dockerfile
+        container_name: retrace_custos
+        depends_on:
+        - db
+        ports:
+        - 7001:7001
+        links:
+        - db
+        volumes:
+        - ./logs/custos.log:/var/log/custos.log
+    
 
 volumes:
     database_data:

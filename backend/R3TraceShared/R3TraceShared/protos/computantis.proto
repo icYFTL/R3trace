@@ -17,12 +17,41 @@ service ComputantisProtoService {
   rpc GetUser(GetUserRequest) returns (GetUserResponse);
   rpc GetUsers(GetUsersRequest) returns (GetUsersResponse);
   rpc GetNationalities(google.protobuf.Empty) returns (GetNationalitiesResponse);
+  rpc Auth(AuthRequest) returns (AuthResponse);
+  rpc Refresh(RefreshRequest) returns (RefreshResponse);
 }
 
 message GenericResponse {
   bool status = 1;
   google.protobuf.StringValue message = 2;
   int32 statusCode = 3;
+}
+
+message RefreshRequest{
+  string refreshToken = 1;
+  string ip = 2;
+}
+
+message RefreshResponse{
+  bool status = 1;
+  optional string jwtToken = 2;
+  optional string refreshToken = 3;
+  optional string message = 4;
+  int32 statusCode = 5;
+}
+
+message AuthRequest{
+  string username = 1;
+  string password = 2;
+  string ip = 3;
+}
+
+message AuthResponse{
+  bool status = 1;
+  optional string jwtToken = 2;
+  optional string refreshToken = 3;
+  optional string message = 4;
+  int32 statusCode = 5;
 }
 
 message CreateTeamRequest {
@@ -61,11 +90,16 @@ message GetTeamsResponse {
 }
 
 message CreateUserRequest {
-  UserProtoEntity user = 1;
+  string username = 1;
+  string password = 2;
+  optional string nationalityUid = 3;
 }
 
 message UpdateUserRequest {
-  UserProtoEntity user = 1;
+  string uid = 1;
+  optional string username = 2;
+  optional string password = 3;
+  optional string nationalityUid = 4;
 }
 
 message DeleteUserRequest {

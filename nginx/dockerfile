@@ -1,0 +1,20 @@
+# # frontend
+# FROM node:lts as build-stage
+# WORKDIR /opt/app
+# COPY . .
+# WORKDIR Nova
+# RUN npm install
+# ENV NODE_ENV=production
+# RUN npm run build
+
+FROM fabiocicerchia/nginx-lua:ubuntu as production-stage
+
+# COPY --from=build-stage /opt/app/Nova/dist /usr/share/nginx/html
+EXPOSE 80
+RUN apt update && apt install gcc -y
+RUN luarocks install lua-resty-http
+RUN luarocks install lua-cjson
+
+COPY ./nginx/share/json.lua /usr/local/share/lua/5.1/
+
+CMD ["nginx", "-g", "daemon off;"]

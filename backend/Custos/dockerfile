@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+WORKDIR /opt/build
+
+COPY ./backend/Custos/ ./Custos/
+COPY ./backend/R3TraceShared/ ./R3TraceShared/
+
+WORKDIR ./Custos/
+
+RUN dotnet restore ./Custos.sln
+RUN mkdir /opt/app
+RUN dotnet publish ./Custos.sln -c Release -o /opt/app/
+
+WORKDIR /opt/app
+
+EXPOSE 7001
+
+ENTRYPOINT ["dotnet", "Custos.dll"]

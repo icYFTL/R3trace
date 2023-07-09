@@ -1,0 +1,5 @@
+global.json
+init_db.sh
+.idea/
+bin/
+obj/

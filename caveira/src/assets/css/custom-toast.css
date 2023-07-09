@@ -1,0 +1,39 @@
+/*!* Кастомные стили для Vue 3 Toastification *!*/
+
+/*!* Контейнер для тоста *!*/
+/*.Vue-Toastification__container {*/
+/*    position: fixed;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*    width: 100vw;*/
+/*    display: flex;*/
+/*    flex-direction: column-reverse;*/
+/*    align-items: flex-end;*/
+/*    z-index: 9999;*/
+/*}*/
+
+/*.Vue-Toastification__toast {*/
+/*    display: inline-flex;*/
+/*    position: relative;*/
+/*    max-height: 64px;*/
+/*    min-height: 32px;*/
+/*    box-sizing: border-box;*/
+/*    margin-bottom: 1rem;*/
+/*    padding: 22px 24px;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1), 0 2px 15px 0 rgba(0, 0, 0, 0.05);*/
+/*    justify-content: space-between;*/
+/*    font-family:*/
+/*            "Lato",*/
+/*            Helvetica,*/
+/*            "Roboto",*/
+/*            Arial,*/
+/*            sans-serif;*/
+/*    !*max-width: 600px;*!*/
+/*    !*min-width: 326px;*!*/
+/*    width: 100vw;*/
+/*    pointer-events: auto;*/
+/*    overflow: hidden;*/
+/*    transform: translateZ(0);*/
+/*    direction: ltr;*/
+/*}*/

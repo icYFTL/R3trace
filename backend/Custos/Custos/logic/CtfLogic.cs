@@ -1,6 +1,7 @@
 using AutoMapper;
 using Custos.database;
 using Custos.database.models;
+using Custos.utils;
 using Microsoft.EntityFrameworkCore;
 using R3TraceShared.logic;
 using R3TraceShared.utils;
@@ -11,11 +12,13 @@ public class CtfLogic : BaseLogic
 {
     private readonly ApplicationContext _db;
     private readonly IMapper _mapper;
+    private readonly RequestInfo _requestInfo;
 
     public CtfLogic(IServiceScopeFactory scopeFactory) : base(scopeFactory)
     {
         _db = Scope.ServiceProvider.GetRequiredService<ApplicationContext>();
         _mapper = Scope.ServiceProvider.GetRequiredService<IMapper>();
+        _requestInfo = Scope.ServiceProvider.GetRequiredService<RequestInfo>();
     }
 
     private GenericLogicResult _ctfCheck(Ctf ctf)
@@ -161,6 +164,75 @@ public class CtfLogic : BaseLogic
             }
 
             _db.Update(updatedCtf);
+            _db.SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            return new FailedLogicResult
+            {
+                StatusCode = HttpUtils.HttpStatusCodeFromNumber(500),
+                Result = "Something went wrong",
+                Exception = ex
+            };
+        }
+
+        return new SuccessLogicResult();
+    }
+
+    public GenericLogicResult JoinCtf(Guid ctfUid, string? code)
+    {
+        var ctf = _db.Ctfs
+            .FirstOrDefault(x => x.Uid == ctfUid);
+        if (ctf is null)
+        {
+            return new FailedLogicResult
+            {
+                Result = "Ctf not found",
+                StatusCode = HttpUtils.HttpStatusCodeFromNumber(404)
+            };
+        }
+
+        if (_requestInfo.User!.Team is null)
+        {
+            return new FailedLogicResult
+            {
+                Result = "Create team first",
+                StatusCode = HttpUtils.HttpStatusCodeFromNumber(424)
+            };
+        }
+
+        var isTeamInCtf = _db.TeamInCtfs
+            .Any(x => x.TeamUid == _requestInfo.User!.Team.Uid && x.CtfUid == ctfUid);
+
+        if (isTeamInCtf)
+        {
+            return new FailedLogicResult
+            {
+                Result = "Your team already registered on this CTF",
+                StatusCode = HttpUtils.HttpStatusCodeFromNumber(424)
+            };
+        }
+
+        if (!String.IsNullOrEmpty(ctf.Code))
+        {
+            if (ctf.Code != code)
+            {
+                return new FailedLogicResult
+                {
+                    Result = "Invalid code",
+                    StatusCode = HttpUtils.HttpStatusCodeFromNumber(400)
+                };
+            }
+        }
+
+        _db.TeamInCtfs.Add(new TeamInCtf
+        {
+            CtfUid = ctfUid,
+            TeamUid = _requestInfo.User!.Team.Uid
+        });
+
+        try
+        {
             _db.SaveChanges();
         }
         catch (Exception ex)

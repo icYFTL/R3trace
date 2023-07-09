@@ -23,4 +23,14 @@ public class NationalitiesLogic : BaseLogic
             Result = result
         };
     }
+
+    public GenericLogicResult IsNationalityValid(Guid nationalityUid)
+    {
+        var result = _db.Nationalities
+            .Any(x => x.Uid == nationalityUid);
+        return new GenericLogicResult
+        {
+            Status = result
+        };
+    }
 }

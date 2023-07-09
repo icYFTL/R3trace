@@ -6,3 +6,7 @@ bin/
 obj/
 node_modules/
 .vscode/
+log.txt
+logs/*
+*.log
+backend/Computantis/Computantis/logs

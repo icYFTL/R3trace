@@ -1,0 +1,17 @@
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+WORKDIR /opt/build
+
+COPY ./backend/Computantis/ ./Computantis/
+COPY ./backend/R3TraceShared/ ./R3TraceShared/
+
+WORKDIR ./Computantis/
+
+RUN dotnet restore ./Computantis.sln
+RUN mkdir /opt/app
+RUN dotnet publish ./Computantis.sln -c Release -o /opt/app/
+
+WORKDIR /opt/app
+
+EXPOSE 7003
+
+ENTRYPOINT ["dotnet", "Computantis.dll"]

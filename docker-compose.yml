@@ -13,7 +13,7 @@ services:
     #     - ./logs:/var/log/nginx
 
     db:
-        image: postgres:13.3
+        image: postgres:15.3
         container_name: retrace_db
         restart: always
         environment:
